@@ -36,6 +36,10 @@ const CartItem = ({ onContinueShopping, updateQuantity, removeItem  }) => {
     }
   };
 
+  const handleUpdateQuantity = (item, quantity) => {
+    dispatch(updateQuantity({ name: item.name, quantity }));
+  };
+
   const handleRemove = (item) => {
     dispatch(removeItem(item.name));
   };
@@ -59,6 +63,9 @@ const CartItem = ({ onContinueShopping, updateQuantity, removeItem  }) => {
         {cart.map(item => (
           <div className="cart-item" key={item.name}>
             <p>Quantity: {item.quantity}</p>
+            <button onClick={() => handleUpdateQuantity(item, item.quantity + 1)}>+</button>
+            <button onClick={() => handleUpdateQuantity(item, item.quantity - 1)}>-</button>
+            <button onClick={() => handleRemove(item)}>Remove</button>
             <p>Subtotal: ${item.quantity * item.cost}</p>
             <img className="cart-item-image" src={item.image} alt={item.name} />
             <div className="cart-item-details">
